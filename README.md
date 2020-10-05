@@ -1,4 +1,5 @@
 # ncbi-one-liners
+
 A collection of NCBI one-liners
 
 *Example input*
@@ -7,7 +8,7 @@ A collection of NCBI one-liners
 
 ## Get SRR identifiers from sample names
 
-        echo PNUSAC017705 | \
+        echo $SAMPLE | \
           esearch -db biosample -query $SAMPLE | \
           elink --target sra | \
           efetch -format xml | \
