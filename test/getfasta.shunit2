@@ -7,10 +7,6 @@ fi
 
 echo "The project directory is at $here"
 
-testEquality() {
-  assertEquals 1 1
-}
-
 testEdirectE() {
   assertTrue "[ -e '$here/lib/edirect/esearch' ]"
 }
@@ -19,5 +15,26 @@ testEdirectR() {
 }
 testEdirectX() {
   assertTrue "[ -x '$here/lib/edirect/esearch' ]"
+}
+
+testQueryIsolatesToSrr() {
+  # PNUSAC017705    PNUSAC017705    SRR12396687
+  # PNUSAC017702    PNUSAC017702    SRR12396689
+  # PNUSAC017523    PNUSAC017523    SRR12346709
+
+  ROW=$(
+    echo PNUSAC017705 | \
+      esearch -db biosample -query $SAMPLE | \
+      elink --target sra | \
+      efetch -format xml | \
+      xtract -pattern EXPERIMENT_PACKAGE -element SAMPLE@alias -element RUN@accession -block DESIGN | \
+      awk -v ID="$SAMPLE" '{print ID"\t"$0}';
+  )
+
+  sample=$(echo "$ROW" | cut -f 2)
+  SRR=$(echo "$ROW" | cut -f 3)
+
+  assertEquals "PNUSAC017705" "$sample" 
+  assertEquals "SRR12396687"  "$SRR"
 }
 
