@@ -10,13 +10,16 @@ jobs:
       uses: actions/checkout@v2
     - name: install edirect
       run:  |
-        yes | bash lib/edirect/setup.sh
-        source $HOME/.bash_profile
-        echo "$PATH" >> $GITHUB_PATH
+        sudo apt-get install -y ncbi-entrez-direct
+        which esearch
+        which elink
+        which efetch
     - name: test env
       run:  |
         echo $PATH
         which esearch
+        which elink
+        which efetch
     - name: Github Action gen-sh-unittest
       id: action-gen-sh-unittest
       uses: vargiuscuola/gen-sh-unittest@master
