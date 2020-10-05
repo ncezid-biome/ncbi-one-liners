@@ -1,0 +1,16 @@
+name: Shell Scripts Unit Testing
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Github Action gen-sh-unittest
+      id: action-gen-sh-unittest
+      uses: vargiuscuola/gen-sh-unittest@master
+    - name: gensh-unittest result
+      run: echo "The result of gensh-unittest Action was ${{ steps.action-gen-sh-unittest.outputs.result }}"
+
