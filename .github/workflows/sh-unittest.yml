@@ -12,9 +12,9 @@ jobs:
       run:  |
         yes | bash lib/edirect/setup.sh
         source $HOME/.bash_profile
+        echo "$PATH" >> $GITHUB_PATH
     - name: test env
       run:  |
-        source $HOME/.bash_profile
         echo $PATH
         which esearch
     - name: Github Action gen-sh-unittest
