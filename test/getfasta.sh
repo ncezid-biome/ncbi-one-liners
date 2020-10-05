@@ -1,29 +1,20 @@
 #! /bin/sh
+# https://github.com/bats-core/bats-core
 
-here="$(dirname $0)/.."
-if [[ "$GITHUB_WORKSPACE" != "" ]]; then
-  here="$GITHUB_WORKSPACE"
-fi
+@test edirectExists {
+  exe=$(which esearch)
+  [ "$exe" != "" ]
 
-echo "The project directory is at $here"
-
-testEdirectE() {
-  assertTrue "[ -e '$here/lib/edirect/esearch' ]"
-}
-testEdirectR() {
-  assertTrue "[ -r '$here/lib/edirect/esearch' ]"
-}
-testEdirectX() {
-  assertTrue "[ -x '$here/lib/edirect/esearch' ]"
 }
 
-testQueryIsolatesToSrr() {
+@test queryIsolatesToSrr {
   # PNUSAC017705    PNUSAC017705    SRR12396687
   # PNUSAC017702    PNUSAC017702    SRR12396689
   # PNUSAC017523    PNUSAC017523    SRR12346709
 
+  SAMPLE=PNUSAC017705
   ROW=$(
-    echo PNUSAC017705 | \
+    echo "$SAMPLE" | \
       esearch -db biosample -query $SAMPLE | \
       elink --target sra | \
       efetch -format xml | \
@@ -33,8 +24,7 @@ testQueryIsolatesToSrr() {
 
   sample=$(echo "$ROW" | cut -f 2)
   SRR=$(echo "$ROW" | cut -f 3)
-
-  assertEquals "PNUSAC017705" "$sample" 
-  assertEquals "SRR12396687"  "$SRR"
+  
+  [ "PNUSAC017705" == "$sample" ] && [ "SRR12396687" == "$SRR" ]
 }
 

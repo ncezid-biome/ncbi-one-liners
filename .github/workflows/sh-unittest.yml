@@ -14,11 +14,13 @@ jobs:
         which esearch
     - name: test env
       run:  |
-        export PATH=$PATH:$GITHUB_WORKSPACE/lib:$GITHUB_WORKSPACE/lib/edirect
+#       export PATH=$PATH:$GITHUB_WORKSPACE/lib:$GITHUB_WORKSPACE/lib/edirect
         echo $PATH
         which esearch
         which elink
         which efetch
         which xtract
         which bats
+    - name: unit tests
+      run:  for unittest in test/*.sh; do bats $unittest; if [ $? -gt 0 ]; then exit 1; fi; done;
 
