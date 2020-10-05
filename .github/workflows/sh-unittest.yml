@@ -10,7 +10,7 @@ jobs:
       uses: actions/checkout@v2
     - name: install edirect
       run:  |
-        sudo apt-get install -y ncbi-entrez-direct
+        sudo apt-get install -y ncbi-entrez-direct bats
         which esearch
     - name: test env
       run:  |
