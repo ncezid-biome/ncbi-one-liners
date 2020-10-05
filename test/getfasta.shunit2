@@ -1,20 +1,23 @@
 #! /bin/sh
 
-here=${GITHUB_WORKSPACE:-$(dirname $0)}
+here="$(dirname $0)/.."
+if [[ "$GITHUB_WORKSPACE" != "" ]]; then
+  here="$GITHUB_WORKSPACE"
+fi
 
-echo "This script directory is at $here"
+echo "The project directory is at $here"
 
 testEquality() {
   assertEquals 1 1
 }
 
 testEdirectE() {
-  assertTrue "[ -e '$here/../lib/edirect/esearch' ]"
+  assertTrue "[ -e '$here/lib/edirect/esearch' ]"
 }
 testEdirectR() {
-  assertTrue "[ -r '$here/../lib/edirect/esearch' ]"
+  assertTrue "[ -r '$here/lib/edirect/esearch' ]"
 }
 testEdirectX() {
-  assertTrue "[ -x '$here/../lib/edirect/esearch' ]"
+  assertTrue "[ -x '$here/lib/edirect/esearch' ]"
 }
 
