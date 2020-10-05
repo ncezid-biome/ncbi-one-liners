@@ -1,0 +1,19 @@
+#! /bin/sh
+
+here=$(dirname $0)
+echo "This script directory is at $here"
+
+testEquality() {
+  assertEquals 1 1
+}
+
+testEdirectE() {
+  assertTrue "[ -e '$here/../lib/edirect/esearch' ]"
+}
+testEdirectR() {
+  assertTrue "[ -r '$here/../lib/edirect/esearch' ]"
+}
+testEdirectX() {
+  assertTrue "[ -x '$here/../lib/edirect/esearch' ]"
+}
+
