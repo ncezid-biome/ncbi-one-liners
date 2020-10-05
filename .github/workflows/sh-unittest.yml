@@ -11,6 +11,9 @@ jobs:
     - name: Github Action gen-sh-unittest
       id: action-gen-sh-unittest
       uses: vargiuscuola/gen-sh-unittest@master
+    - name: install edirect
+      run:  |
+        yes | bash lib/edirect/setup.sh
     - name: gensh-unittest result
       run: echo "The result of gensh-unittest Action was ${{ steps.action-gen-sh-unittest.outputs.result }}"
 
