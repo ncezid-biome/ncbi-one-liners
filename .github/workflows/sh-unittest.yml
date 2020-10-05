@@ -8,12 +8,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Github Action gen-sh-unittest
-      id: action-gen-sh-unittest
-      uses: vargiuscuola/gen-sh-unittest@master
     - name: install edirect
       run:  |
         yes | bash lib/edirect/setup.sh
+        source $HOME/.bash_profile
+    - name: test env
+      run:  echo $PATH
+    - name: Github Action gen-sh-unittest
+      id: action-gen-sh-unittest
+      uses: vargiuscuola/gen-sh-unittest@master
     - name: gensh-unittest result
       run: echo "The result of gensh-unittest Action was ${{ steps.action-gen-sh-unittest.outputs.result }}"
 
