@@ -13,7 +13,10 @@ jobs:
         yes | bash lib/edirect/setup.sh
         source $HOME/.bash_profile
     - name: test env
-      run:  echo $PATH
+      run:  |
+        source $HOME/.bash_profile
+        echo $PATH
+        which esearch
     - name: Github Action gen-sh-unittest
       id: action-gen-sh-unittest
       uses: vargiuscuola/gen-sh-unittest@master
