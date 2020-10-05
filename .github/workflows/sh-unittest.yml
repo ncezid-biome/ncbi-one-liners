@@ -2,6 +2,9 @@ name: Shell Scripts Unit Testing
 
 on: push
 
+env: 
+  PATH: ${{ PATH }}:$GITHUB_WORKSPACE/lib:$GITHUB_WORKSPACE/lib/edirect
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,17 +15,12 @@ jobs:
       run:  |
         sudo apt-get install -y ncbi-entrez-direct
         which esearch
-        which elink
-        which efetch
     - name: test env
       run:  |
         echo $PATH
         which esearch
         which elink
         which efetch
-    - name: Github Action gen-sh-unittest
-      id: action-gen-sh-unittest
-      uses: vargiuscuola/gen-sh-unittest@master
-    - name: gensh-unittest result
-      run: echo "The result of gensh-unittest Action was ${{ steps.action-gen-sh-unittest.outputs.result }}"
+        which xtract
+        which bats
 
